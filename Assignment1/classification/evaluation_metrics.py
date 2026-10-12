@@ -63,9 +63,10 @@ def precision_score(y_true, y_pred):
     tp, fp, _, _ = _binary_counts(y_true, y_pred)
 
     # =============== TODO (students) ===============
-
+    precision = tp / (tp + fp + EPS)
+    return precision
     # ===============================================
-    raise NotImplementedError("Implement precision_score")
+    # raise NotImplementedError("Implement precision_score")
 
 
 def recall_score(y_true, y_pred):
@@ -90,9 +91,10 @@ def recall_score(y_true, y_pred):
     tp, _, fn, _ = _binary_counts(y_true, y_pred)
 
     # =============== TODO (students) ===============
-
+    recall = tp / (tp + fn + EPS)
+    return recall
     # ===============================================
-    raise NotImplementedError("Implement recall_score")
+    # raise NotImplementedError("Implement recall_score")
 
 
 def f1_score(y_true, y_pred):
@@ -115,6 +117,9 @@ def f1_score(y_true, y_pred):
     Use EPS to avoid division by zero when computing the score.
     """
     # =============== TODO (students) ===============
-
+    precision = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+    f1 = 2 * precision * recall / (precision + recall + EPS)
+    return f1
     # ===============================================
-    raise NotImplementedError("Implement f1_score")
+    # raise NotImplementedError("Implement f1_score")

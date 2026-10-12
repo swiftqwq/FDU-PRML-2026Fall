@@ -1,3 +1,5 @@
 Assignment1/k_nearest_neighbors/knn_groundtruth.py
 __pycache__/
 output/
+.DS_Store
+*.zip

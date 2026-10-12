@@ -9,8 +9,8 @@ from data_generate import load_prepared_dataset
 from datetime import datetime
 
 # === 学生信息 ===
-STUDENT_NAME = "张三"
-STUDENT_ID   = "2026123456"
+STUDENT_NAME = "张一鸣"
+STUDENT_ID   = "25803050045"
 # ================
 
 def _almost_equal(a, b, tol=1e-9):
@@ -133,17 +133,17 @@ def _verbose_report():
     # 4) 选参（验证集）与曲线打印
     print("[MODEL SELECTION] validation curve")
     ks = [1,3,5,7,9,11,13]
-    best_k, accs = select_k_by_validation(Xtr, ytr, Xval, yval, ks, metric="l2", mode="no_loops")
+    best_k, accs = select_k_by_validation(Xtr, ytr, Xval, yval, ks, metric="cosine", mode="no_loops")
     accs_line = ", ".join([f"k={k}:{a:.4f}" for k, a in zip(ks, accs)])
     print(f" - ks & val_accs: {accs_line}")
     print(f" - best_k = {best_k} (val_acc = {accs[ks.index(best_k)]:.4f})")
     print("-" * 70)
 
     # 5) 端到端：用 best_k 在 test 上评估
-    print("[E2E] train+val -> test (metric=l2, mode=no_loops)")
+    print("[E2E] train+val -> test (metric=cosine)")
     X_tv = np.vstack([Xtr, Xval])
     y_tv = np.concatenate([ytr, yval])
-    y_pred_test = knn_predict(Xte, X_tv, y_tv, k=best_k, metric="l2", mode="no_loops")
+    y_pred_test = knn_predict(Xte, X_tv, y_tv, k=best_k, metric="cosine", mode="no_loops")
     test_acc = _acc(yte, y_pred_test)
     print(f" - test_acc(best_k={best_k}) = {test_acc:.4f}")
     print("=" * 70)
